@@ -9,17 +9,43 @@ class TaggedImages {
   }
   add(url, tags, callback) {
     (new this.Image({
-      imageUrl: url,
-      tags: tags,
+      url,
+      tags,
     }))
     .save(callback);  // callback(err)
   }
   retrieve(url, callback) {
     this.Image.findOne({ url }, callback); // callback(err, Image)
   }
+  retrieveFromArray(urls, callback) {
+    const imagesFound = [];
+    const imagesNotFound = [];
+    let callbacksRemaining = urls.length;
+
+    // Cycle through each url
+    urls.forEach(url => {
+      this.retrieve(url, (err, image) => {
+        if(err) {
+          callback(err);
+          return;
+        }
+        // Categorize images
+        if (image === null) {
+          imagesNotFound.push(url);
+        } else {
+          imagesFound.push({ url: image.url, tags: image.tags });
+        }
+
+        // Callback when all items are checked 
+        if (--callbacksRemaining === 0) {
+          callback(null, imagesFound, imagesNotFound);
+        }
+      })
+    })
+  }
 }
 TaggedImages.imageSchema = new mongoose.Schema({
-  imageUrl: { type: String, required: true, unique: true },
+  url: { type: String, required: true, unique: true },
   tags: { type: Array, "default": [] },
 })
 
@@ -29,17 +55,23 @@ const dbPassword = 'tephra';
 const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
 
 
-imageTags.add(
-  'http://i.telegraph.co.uk/multimedia/archive/03589/Wellcome_Image_Awa_3589699k.jpg',
-  ['cave', 'purple', 'light'],
-  err => {
-    if (err) {
-      console.error('error saving link');
-      return;
-    }
-    console.log(imageTags.retrieve('http://i.telegraph.co.uk/multimedia/archive/03589/Wellcome_Image_Awa_3589699k.jpg'),
-      (err, image) => {
-        console.log('image');
-      })
-  });
+// imageTags.add(
+//   'house.jpg',
+//   ['barn', 'suburb'],
+//   err => {
+//     if (err) {
+//       console.error('error saving link');
+//     }
+//   });
+
 module.exports = TaggedImages;
+
+imageTags.retrieveFromArray(
+  ['animal.jpg', 'car.jpg', 'house.jpg'],
+  (err, imagesFound, imagesNotFound) => {
+    if(err) {
+      console.error(err);
+    }
+    console.log('not found\n', imagesNotFound);
+    console.log('\n\nfound\n', imagesFound);
+  });
