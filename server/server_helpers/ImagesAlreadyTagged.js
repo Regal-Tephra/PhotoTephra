@@ -7,16 +7,22 @@ class TaggedImages {
     this.Image = mongoose.model('Image',
       TaggedImages.imageSchema);
   }
+
+  // .add(imageUrl, tags[], callback(err))
   add(url, tags, callback) {
     (new this.Image({
       url,
       tags,
     }))
-    .save(callback);  // callback(err)
+    .save(callback);
   }
+
+  // .retrieve(imageUrl, callback(err, image{}))
   retrieve(url, callback) {
-    this.Image.findOne({ url }, callback); // callback(err, Image)
+    this.Image.findOne({ url }, callback);
   }
+
+  // .retrieveUsingArray(imageUrls[], callback(err, imagesFound[{}], imagesNotFound[]))
   retrieveUsingArray(urls, callback) {
     const imagesFound = [];
     const imagesNotFound = [];
@@ -52,27 +58,29 @@ TaggedImages.imageSchema = new mongoose.Schema({
 const dbAddress = 'ds025583.mlab.com:25583/photephra';
 const dbUser = 'regal';
 const dbPassword = 'tephra';
-const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
 
 
-imageTags.add(
-  'house.jpg',
-  ['barn', 'suburb'],
-  err => {
-    if (err) {
-      console.error('error saving link');
-    }
-  });
 
-imageTags.retrieveUsingArray(
-  ['animal.jpg', 'car.jpg', 'house.jpg', 'super.jpg'],
-  (err, imagesFound, imagesNotFound) => {
-    if(err) {
-      console.error(err);
-    }
-    console.log('not found\n', imagesNotFound);
-    console.log('\n\nfound\n', imagesFound);
-  });
+// EXAMPLE USE
+// const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
+// imageTags.add(
+//   'house.jpg',
+//   ['barn', 'suburb'],
+//   err => {
+//     if (err) {
+//       console.error('error saving link');
+//     }
+//   });
+
+// imageTags.retrieveUsingArray(
+//   ['animal.jpg', 'car.jpg', 'house.jpg', 'super.jpg'],
+//   (err, imagesFound, imagesNotFound) => {
+//     if(err) {
+//       console.error(err);
+//     }
+//     console.log('not found\n', imagesNotFound);
+//     console.log('\n\nfound\n', imagesFound);
+//   });
 
 
 module.exports = TaggedImages;
