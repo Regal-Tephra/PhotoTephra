@@ -17,7 +17,7 @@ class TaggedImages {
   retrieve(url, callback) {
     this.Image.findOne({ url }, callback); // callback(err, Image)
   }
-  retrieveFromArray(urls, callback) {
+  retrieveUsingArray(urls, callback) {
     const imagesFound = [];
     const imagesNotFound = [];
     let callbacksRemaining = urls.length;
@@ -55,19 +55,17 @@ const dbPassword = 'tephra';
 const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
 
 
-// imageTags.add(
-//   'house.jpg',
-//   ['barn', 'suburb'],
-//   err => {
-//     if (err) {
-//       console.error('error saving link');
-//     }
-//   });
+imageTags.add(
+  'house.jpg',
+  ['barn', 'suburb'],
+  err => {
+    if (err) {
+      console.error('error saving link');
+    }
+  });
 
-module.exports = TaggedImages;
-
-imageTags.retrieveFromArray(
-  ['animal.jpg', 'car.jpg', 'house.jpg'],
+imageTags.retrieveUsingArray(
+  ['animal.jpg', 'car.jpg', 'house.jpg', 'super.jpg'],
   (err, imagesFound, imagesNotFound) => {
     if(err) {
       console.error(err);
@@ -75,3 +73,7 @@ imageTags.retrieveFromArray(
     console.log('not found\n', imagesNotFound);
     console.log('\n\nfound\n', imagesFound);
   });
+
+
+module.exports = TaggedImages;
+
