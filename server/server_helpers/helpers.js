@@ -1,7 +1,8 @@
-// const _ = require('lodash');
+const _ = require('lodash');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
+const categories = require('./categories.js');
 
 console.log(key);
 
@@ -9,6 +10,8 @@ const client = new Clarifai({
   id: key.clarifaiClientID,
   secret: key.clarifaiClientSecret,
 });
+console.log(client);
+
 console.log(client);
 
 // take an array and return arr selecting only =limit # of elements
@@ -53,6 +56,7 @@ module.exports.getTags = (photoArray, callback) => {
       callback(clarifaiAccessErr);
       return;
     }
+<<<<<<< 0796abdf60d50b1d1f4e7c39b2998ec4ce03fc69
 
     const db = new DbForSavingPhotoAPIResults();
 
@@ -95,6 +99,34 @@ module.exports.getTags = (photoArray, callback) => {
       } else {
         finishedCallback([]);
       }
+=======
+    console.log(accessToken);
+  //   // TODO: Photo Array May need cleaning up
+  // const arrayOfPhotos = photoArray;
+  // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
+  //   if (err1) {
+  //     console.log('Error in getting images from Clarifai', err1);
+  //     return;
+  //   }
+  //   console.log("Results from Clarifai", results);
+  //   // Clean up each photo and return replace new array
+  //   returnArray = _.map(results.tags, (photo) => {
+  //     const newPhoto = photo;
+  //     // add the URL of the photo along that was sent
+  //     newPhoto.url = photoArray.url;
+  //     // Also, remove the concept ID. We don't need it
+  //     delete newPhoto.conceptId;
+  //     return newPhoto;
+  //   });
+  // });
+
+    client.tagFromUrls('image', photoArray, (error, results) => {
+      if (error) {
+        console.log(err);
+      }
+      // console.log(JSON.stringify(results));
+      module.exports.classifyTags(results.tags);
+>>>>>>> completed function to match tags to pre-defined categories
     });
 
     console.log(accessToken);
@@ -125,21 +157,28 @@ module.exports.getTags = (photoArray, callback) => {
 };
 
 // Classify photo based
-// module.exports.classifyPhoto = (photoObj, categories) => {
+module.exports.classifyTags = (tags) => {
 //   // TODO: Complete Function
-//   // Takes in an object or array of categories
-//   // categories will be ['outdoors', 'professional']
-//   // for(var i = 0; i < photoObj[0].result.tag.classes.length; i++) {
-//   //   if()
-//   // }
-//   //   results[0].result.tag.classes
-//     // Create a new object with a score of each category
-//     // Only check scores that are >15%
-//     // Goes through photo tags and looks for matches in the categories object
-//     // If there's a match, then add probability / score to the score/array
+  // Input is an array of tags
+  // Output is an array of one or multiple categories (ex: ['professional', 'headshot'])
+  const categorized = [];
 
-//   // Return object with the original photo and most relevant category
-// };
+  _.forEach(categories, (value, index) => {
+    // Look at all the tags
+    for (let i = 0; i < tags.length; i++) {
+      // If it is inside the categories array, push it but break immediately
+      // so there are no duplicate categories
+      if (_.indexOf(value, tags[i].class) !== -1) {
+        categorized.push(index);
+        break;
+      }
+    }
+  });
+
+  console.log(categorized);
+
+  return categorized;
+};
 
 // Helper Functions that I need
   // Get the facebook photos that I need from the array Andy is sending me
