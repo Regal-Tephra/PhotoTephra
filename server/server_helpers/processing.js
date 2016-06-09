@@ -18,15 +18,7 @@ helpers.getTags(testImages, (err, images) => {
     console.error(err);
     return;
   }
-  // console.log(JSON.stringify(images));
-  const results = [];
-  for (let i = 0; i < images.length; i++) {
-		const url = images[i].url;
-		const categories = helpers.classifyTags(images[i].apiData[0].tags);
-		results.push({ url: url, categories: categories });
-  }
-
-  console.log(results);
+  console.log(JSON.stringify(images, null, 2));
 });
 
 // helpers.classifyPhoto(testImages, '')

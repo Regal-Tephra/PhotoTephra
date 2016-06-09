@@ -1,9 +1,8 @@
-const _ = require('lodash');
+// const _ = require('lodash');
 const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
-const categories = require('./categories.js')
 const client = Promise.promisifyAll(
   new Clarifai({
     id: key.clarifaiClientID,
@@ -132,6 +131,8 @@ module.exports.classifyTags = (tags) => {
       }
     }
   });
+
+  console.log(categorized);
 
   return categorized;
 };
