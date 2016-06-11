@@ -142,3 +142,72 @@
   opacity: 1;
   visibility:hidden !important;
 }
+.final-profile-container {
+  width: 350px;
+  background-color: #D4D4EB;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-profile-images-container {
+  height: 350px;
+  width: 350px;
+  position: relative;
+}
+.square-pic {
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: crop;
+  background-image: url('https://scontent.xx.fbcdn.net/v/t1.0-9/10372539_10202332334659952_3436401212391021871_n.jpg?oh=33c969e2bb49e78a5e7dc6da2731470a&oe=57CBDCF9#.jpg');
+  background-size: cover;
+  background-position: center top;
+  border-radius: 5px;
+  bottom: 0px;
+}
+.sq-pic-left {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  width: 60%;
+  height: 60%;
+}
+.sq-pic-right-top {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.sq-pic-right-middle {
+  position: absolute;
+  top: 36%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.sq-pic-right-bottom {
+  position: absolute;
+  top: 68%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.profile-text, .profile-text-title {
+  font-size: 16px;
+}
+.profile-text-title, .profile-text {
+  padding: 0 4%;
+  text-align: left;
+}
+.profile-text-title {
+  margin-top: -8px;
+  text-align: left;
+  font-weight: bold;
+
+}
+.profile-text {
+  margin-top: 7px;
+  background-color: white;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
