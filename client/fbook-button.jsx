@@ -46,6 +46,7 @@ class FacebookButton extends React.Component {
                 this.props.getQuotes();
                 this.props.setView('slides');
       } else {
+        this.props.getQuotes();
         FB.login((response) => {
           let access_token = response.authResponse.accessToken;
           if (response.authResponse) {

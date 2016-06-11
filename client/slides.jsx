@@ -86,5 +86,6 @@ const Slides = (props) => (
 Slides.propTypes = {
   images: React.PropTypes.object,
   quotes: React.PropTypes.object,
+  setChoice: React.Prototypes.func,
 };
 export default Slides;
