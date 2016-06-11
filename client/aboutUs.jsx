@@ -4,8 +4,8 @@ import React from 'react';
 const AboutUs = () => (
   <div>
     <h1 className="title">Meet the team</h1>
-    <div className="container profiles">
-      <row className="row-fluid">
+    <div className="container-fluid cards">
+      <row className="row-fluid profiles">
         <div className="col-xs-5 profile">
           <img alt="me" className="profileImage img-square" src="https://avatars3.githubusercontent.com/u/709295?v=3&s=400" />
           <h3> Aaron<span id="unbold">, 25</span></h3>

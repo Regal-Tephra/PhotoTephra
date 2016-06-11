@@ -5,8 +5,12 @@
   font-family: 'Montserrat', sans-serif;
   margin-left: 25px;
 }
+.cards{
+}
 .profiles{
-  margin:auto;
+  width: auto;
+  margin: 0 auto;
+  display: flex;
 }
 .profileImage{
   width:165px;
@@ -15,6 +19,7 @@
   font-family: 'Montserrat', sans-serif;
 }
 .profile{
+  margin: 0 auto;
   border-style: solid;
   border-color: grey;
   border-radius:3px;
