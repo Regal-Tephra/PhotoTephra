@@ -21,7 +21,12 @@ const topNav = (props) => (
         </li>
         <li>
           <a onClick={() => { props.setView('slides'); }} activeClassName="active">
-          Create new Profile
+          Create New Profile
+          </a>
+        </li>
+        <li>
+          <a onClick={() => { props.setView('profiles'); }} activeClassName="active">
+          View Saved Profiles
           </a>
         </li>
       </ul>

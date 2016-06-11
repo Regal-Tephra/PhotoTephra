@@ -7,6 +7,7 @@ import Nav from './nav';
 import Slides from './slides';
 import $ from 'jquery';
 import Loading from './loading';
+import Profiles from './profiles';
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class App extends React.Component {
         adventurous: [{ urls: '' }],
       },
       usersName: '',
+      profiles: [],
     };
     this.render();
   }
@@ -94,6 +96,19 @@ class App extends React.Component {
     });
   }
 
+  getProfiles() {
+    $.get({
+      url: 'api/profiles',
+      data: { username: this.state.usersName },
+      contentType: 'application/json',
+    })
+    .done((profiles) => {
+      console.log(profiles);
+      this.setState({ profiles });
+    })
+    .fail((err) => console.error(err));
+  }
+
   getQuotes() {
     const that = this;
     $.get({
@@ -139,6 +154,7 @@ class App extends React.Component {
               quotes={this.state.quotes}
               setChoice={this.state.setChoice}
               usersName={this.state.usersName}
+              setView={this.setView}
             />
           </div>
         </div>
@@ -158,6 +174,9 @@ class App extends React.Component {
       ),
       loading: (
         <Loading />
+      ),
+      profiles: (
+        <Profiles profiles={this.state.profiles} />
       ),
     };
     return (<div>{views[this.state.view]}</div>);

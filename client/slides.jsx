@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-viewport-slider';
 import Carousel from './carousel';
 import ImageSlide from './imageSlide';
+import $ from 'jquery';
 // const data = [
 //   "https://scontent.xx.fbcdn.net/v/t1.0-9/13100690_10208272746391839_223693133460415313_n.jpg?oh=ebf000696e6a9e4a5fc3f6b0f17b3cb2&oe=57CBE11D#.jpg",
 //   "https://scontent.xx.fbcdn.net/t31.0-8/12484741_10207288525666936_5053017157545856962_o.jpg#.jpg",
@@ -19,7 +20,7 @@ class Slides extends React.Component {
     super(props);
     this.setSelection = this.setSelection.bind(this);
     this.setQuote = this.setQuote.bind(this);
-
+    this.postProfile = this.postProfile.bind(this);
     this.state = {
       userSelections: {
         headshot: 0,
@@ -29,7 +30,7 @@ class Slides extends React.Component {
         quote: 'This is my profile text',
       },
     };
-  }
+  } 
 
   setSelection(category, imageIndex) {
     const userSelections = this.state.userSelections;
@@ -43,6 +44,24 @@ class Slides extends React.Component {
     const userSelections = this.state.userSelections;
     userSelections.quote = event.target.value;
     this.setState({ userSelections });
+  }
+
+  postProfile() {
+    const profile = {
+      username: this.props.usersName,
+      headshot: this.props.images.headshot[this.state.userSelections.headshot].urls,
+      athletic: this.props.images.athletic[this.state.userSelections.athletic].urls,
+      professional: this.props.images.professional[this.state.userSelections.professional].urls,
+      adventurous: this.props.images.adventurous[this.state.userSelections.adventurous].urls,
+      quote: this.state.userSelections.quote,
+    };
+    $.post({
+      url: 'api/saveProfile',
+      data: JSON.stringify(profile),
+      contentType: 'application/json',
+    }).done(() => {
+      this.props.setView('profiles');
+    });
   }
 
   render() {
@@ -134,6 +153,7 @@ class Slides extends React.Component {
                           {this.state.userSelections.quote}
                         </div>
                       </div>
+                      <button onClick={this.postProfile} > Save your profile </button>
                     </div>
                   </div>
                 </div>
@@ -152,5 +172,6 @@ Slides.propTypes = {
   quotes: React.PropTypes.object,
   setChoice: React.PropTypes.func,
   usersName: React.PropTypes.string,
+  setView: React.PropTypes.func,
 };
 export default Slides;

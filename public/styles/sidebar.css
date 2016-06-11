@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 #menu-toggle{
   display:flex;
   width:100%;
@@ -71,6 +72,7 @@
 /* Sidebar Styles */
 
 .sidebar-nav {
+  font-family: 'Montserrat', sans-serif;
   position: absolute;
   top: 0;
   width: 250px;
