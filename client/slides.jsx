@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-viewport-slider';
-import Slider2 from 'react-slick';
+import Carousel from './carousel';
+import ImageSlide from './imageSlide';
 // const data = [
 //   "https://scontent.xx.fbcdn.net/v/t1.0-9/13100690_10208272746391839_223693133460415313_n.jpg?oh=ebf000696e6a9e4a5fc3f6b0f17b3cb2&oe=57CBE11D#.jpg",
 //   "https://scontent.xx.fbcdn.net/t31.0-8/12484741_10207288525666936_5053017157545856962_o.jpg#.jpg",
@@ -16,166 +17,113 @@ import Slider2 from 'react-slick';
 class Slides extends React.Component {
   constructor(props) {
     super(props);
-    this.add = this.add.bind(this);
-    this.setChoice = this.setChoice.bind(this);
+    this.setSelection = this.setSelection.bind(this);
 
     this.state = {
-      index: 0,
-      pickedProfile: {
-        headshot: '',
-        athletic: '',
-        professional: '',
-        adventurous: '',
+      userSelections: {
+        headshot: 0,
+        athletic: 0,
+        professional: 0,
+        adventurous: 0,
         quote: '',
       },
     };
   }
 
-  setChoice(field, choice) {
-    const storage = this.state.pickedProfile;
-    storage[field] = choice;
-    this.setState({ pickedProfile: storage });
-  }
-  add(key, event) {
-    this.setState({ index: key });
+  setSelection(category, imageIndex) {
+    const userSelections = this.state.userSelections;
+    userSelections[category] = imageIndex;
+    this.setState({ userSelections });
   }
   render() {
+    const slides = [
+      {
+        category: 'headshot',
+        title: 'Headshot',
+        bgColor: '#002D8E',
+      },
+      {
+        category: 'professional',
+        title: 'Professional',
+        bgColor: '#00B1F2',
+      },
+      {
+        category: 'athletic',
+        title: 'Athletic',
+        bgColor: '#0099F2',
+      },
+      {
+        category: 'adventurous',
+        title: 'Adventurous',
+        bgColor: '#F2D500',
+      },
+    ];
     return (
       <Slider>
-        <div itemStyle={{ backgroundColor: '#002D8E' }}>
-          <div className="Aligner  centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content">
-                <h1>Headshot</h1>
-                <div className="photoContainer">
-                  {this.props.images.headshot.map(image =>
-                    <img alt="headshot" className="photo" src={image.urls} />)}
+        {
+          slides.map(({ category, title, bgColor }) => (
+            <ImageSlide
+              index={this.state.userSelections[category]}
+              images={this.props.images[category]}
+              category={category}
+              title={title}
+              bgColor={bgColor}
+              setSelection={this.setSelection}
+            />
+          )).concat([
+            (
+              <div itemStyle={{ backgroundColor: 'grey' }}>
+                <div className="Aligner centering text-center">
+                  <div className="col-md-8 choiceAligner choiceContainer">
+                    <div className="content h1">
+                      <h1>Pick Your Tagline</h1>
+                      <div className="photoContainer">
+                        {this.props.quotes.map(quote =>
+                          <div className="container-fluid quote">{quote}
+                          </div>)}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div itemStyle={{ backgroundColor: '#00B1F2' }}>
-          <div className="Aligner centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content h1">
-                <h1>Professional</h1>
-                <div className="photoContainer">
-                  {this.props.images.professional.map(image =>
-                    <img alt="athletic" className="photo" src={image.urls} />)}
+            ),
+            (
+              <div itemStyle={{ backgroundColor: '#C9009D' }}>
+                <div className="Aligner  centering text-center">
+                  <div className="col-xs-8 choiceAligner choiceContainer">
+                    <div className="content h1">
+                      <h1>You're done!</h1>
+                      <div className="final-profile-container">
+                        <div className="final-profile-images-container">
+                          <div className="sq-pic-left"><div className="square-pic"></div></div>
+                          <div className="sq-pic-right-top"><div className="square-pic"></div></div>
+                          <div className="sq-pic-right-middle"><div className="square-pic"></div></div>
+                          <div className="sq-pic-right-bottom"><div className="square-pic"></div></div>
+                        </div>
+                        <div className="profile-text-title">
+                          About {name}
+                        </div>
+                        <div className="profile-text">
+                          This is my profile text
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div itemStyle={{ backgroundColor: '#0099F2' }}>
-          <div className="Aligner centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content h1">
-                <h1>Athletic</h1>
-                <div className="photoContainer">
-                  {this.props.images.athletic.map(image =>
-                    <img alt="athletic" className="photo" src={image.urls} />)}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div itemStyle={{ backgroundColor: '#F2D500' }}>
-          <div className="Aligner  centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content h1">
-                <h1>Adventurous</h1>
-                <div className="photoContainer">
 
-                  <Carousel index={this.state.index} images={this.props.images.adventurous} />
-                  {this.props.images.adventurous.map((image, key) =>
-                    <img alt="adventurous"
-                      onClick={this.add.bind(this, key)}
-                      className="photoSmall" src={image.urls} key={key}
-                    />)}
+            ),
+          ])
+        }
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div itemStyle={{ backgroundColor: 'grey' }}>
-          <div className="Aligner  centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content h1">
-                <h1>Pick Your Tagline</h1>
-                <div className="photoContainer">
-                  {this.props.quotes.map(quote =>
-                    <div className="container-fluid quote">{quote}
-                    </div>)}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div itemStyle={{ backgroundColor: '#C9009D' }}>
-          <div className="Aligner  centering text-center">
-            <div className="col-md-8 choiceAligner choiceContainer">
-              <div className="content h1">You're done!</div>
-            </div>
-          </div>
-        </div>
       </Slider>
     );
   }
 }
-
-class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    var settings = {
-      dots: true,
-      infinite: false,
-      // speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      adaptiveHeight: true,
-      draggable: false,
-      slickGoTo: this.props.index,
-    };
-    console.log('over here', this.props.index);
-    console.log('slide# ', this.props.index);
-    console.log(this.props.images);
-
-    let imageElements = this.props.images.map( (image, i) => (
-      <div className="photoContainer">
-        <img className="photo" src={image.urls} key={i}></img>
-      </div>
-    ));
-    // if (imageElements.length === 0) {
-    //   imageElements = (<div></div>);
-    // }
-    // var item = this.props.images.map( (image, i ) => (
-    //   ));
-
-    // console.log(this.props.images.map( (image, i) => (
-    //             <div className='photoContainer'>
-    //               <img className='photo' src={image} key={i}></img>
-    //             </div>
-    //           )));
-    return (
-      <div className="carouselContainer">
-          <Slider2 {...settings}>
-              {imageElements}
-          </Slider2>
-      </div>
-    );
-  }
-}
-
-
-
 Slides.propTypes = {
   images: React.PropTypes.object,
   quotes: React.PropTypes.object,
   setChoice: React.PropTypes.func,
 };
 export default Slides;
+
