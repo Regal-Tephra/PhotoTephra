@@ -8,7 +8,7 @@
 }
 
 .choiceContainer{
-  top: 10em;
+  top: 3em;
   background-color: rgba(255,255,255, 0.5);
   border-radius: 4px;
   color: inherit;
@@ -17,28 +17,66 @@
 }
 .photoContainer{
   display:block;
+  width: 100%;
+  /*overflow: hidden;*/
 }
 .photo{
+  background-size: 'cover';
+  /*border-radius: 1;*/
+  /*border-style: solid;*/
+  /*border-width: 1.5px;*/
+  /*border-color: black;*/
+  float: 'left';
+  height: 100%;
+  margin: 5;
+  /*overflow: 'hidden';*/
+  width: 100%;
+  display: inline;
+  /*box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);*/
+  overflow: auto;
+}
+
+.photoSmall {
   background-size: 'cover';
   border-radius: 1;
   border-style: solid;
   border-width: 1.5px;
   border-color: black;
   float: 'left';
-  height: 100;
+  height: 45;
   margin: 5;
   overflow: 'hidden';
-  width: 100;
+  width: 45;
   display: inline;
   box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);
-  padding-bottom:10px;
 }
 
-.quote {
-  font-size: 10;
-  background-color: white;
-  box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);
+.slick-slider {
+  position: initial;
 }
+
+.slick-slide img {
+  display: inline; 
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: 100px;
+    list-style: none;
+    display: block;
+    text-align: center;
+    padding: 0;
+    width: 64%;
+}
+
+.carouselContainer {
+  height: 60%;
+  margin: 0 auto;
+  padding: 40px;
+  width: 80%;
+  color: #333;
+}
+
 
 
 /*FORCED STYLING FOR SLIDES*/

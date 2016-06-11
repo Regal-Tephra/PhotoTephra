@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-viewport-slider';
+import Slider2 from 'react-slick';
 // const data = [
 //   "https://scontent.xx.fbcdn.net/v/t1.0-9/13100690_10208272746391839_223693133460415313_n.jpg?oh=ebf000696e6a9e4a5fc3f6b0f17b3cb2&oe=57CBE11D#.jpg",
 //   "https://scontent.xx.fbcdn.net/t31.0-8/12484741_10207288525666936_5053017157545856962_o.jpg#.jpg",
@@ -12,7 +13,21 @@ import Slider from 'react-viewport-slider';
 //   "https://scontent.xx.fbcdn.net/v/t1.0-9/10372539_10202332334659952_3436401212391021871_n.jpg?oh=33c969e2bb49e78a5e7dc6da2731470a&oe=57CBDCF9#.jpg"
 // ];
 
-const Slides = (props) => (
+class Slides extends React.Component {
+    constructor(props){
+    super(props);
+    this.add = this.add.bind(this);
+    this.state = {
+      index: 0,
+    };
+  }
+
+  add(key, event) {
+    this.setState({ index: key });
+  }
+render() {
+
+  return(
   <Slider>
     <div itemStyle={{ backgroundColor: '#002D8E' }}>
       <div className="Aligner  centering text-center">
@@ -20,7 +35,7 @@ const Slides = (props) => (
           <div className="content">
           <h1>Headshot</h1>
             <div className="photoContainer">
-              {props.images.headshot.map(image => <img className='photo' src={image.urls} />)}
+              {this.props.images.headshot.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -32,7 +47,7 @@ const Slides = (props) => (
           <div className="content h1">
             <h1>Professional</h1>
             <div className="photoContainer">
-              {props.images.professional.map(image => <img className='photo' src={image.urls} />)}
+              {this.props.images.professional.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -44,7 +59,7 @@ const Slides = (props) => (
           <div className="content h1">
             <h1>Athletic</h1>
             <div className="photoContainer">
-              {props.images.athletic.map(image => <img className='photo' src={image.urls} />)}
+              {this.props.images.athletic.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -56,7 +71,10 @@ const Slides = (props) => (
           <div className="content h1">
             <h1>Adventurous</h1>
             <div className="photoContainer">
-              {props.images.adventurous.map(image => <img className='photo' src={image.urls} />)}
+
+            <Carousel index={this.state.index} images={this.props.images.adventurous}/>
+            {this.props.images.adventurous.map((image, key) => <img onClick={this.add.bind(this, key)} className='photoSmall' src={image.urls} key={key} />)}
+
             </div>
           </div>
         </div>
@@ -68,7 +86,7 @@ const Slides = (props) => (
           <div className="content h1">
             <h1>Pick Your Tagline</h1>
             <div className="photoContainer">
-              {props.quotes.map(quote => <div className="container-fluid quote">{quote}</div>)}
+              {this.props.quotes.map(quote => <div className="container-fluid quote">{quote}</div>)}
             </div>
           </div>
         </div>
@@ -83,9 +101,58 @@ const Slides = (props) => (
     </div>
   </Slider>
 );
+}
+};
+
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    var settings = {
+      dots: true,
+      infinite: false,
+      // speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      adaptiveHeight: true,
+      draggable: false,
+      slickGoTo: this.props.index,
+    };
+    console.log('over here', this.props.index);
+    console.log('slide# ', this.props.index);
+
+    let imageElements = this.props.images.map( (image, i) => (
+      <div className='photoContainer'>
+        <img className='photo' src={image.urls} key={i}></img>
+      </div>
+    ));
+    // if (imageElements.length === 0) {
+    //   imageElements = (<div></div>);
+    // }
+    // var item = this.props.images.map( (image, i ) => (
+    //   ));
+
+    // console.log(this.props.images.map( (image, i) => (
+    //             <div className='photoContainer'>
+    //               <img className='photo' src={image} key={i}></img>
+    //             </div>
+    //           )));
+    return (
+      <div className="carouselContainer">
+          <Slider2 {...settings}>
+              {imageElements}
+          </Slider2>
+      </div>
+    );
+  }
+}
+
+
+
 Slides.propTypes = {
   images: React.PropTypes.object,
   quotes: React.PropTypes.object,
-  setChoice: React.Prototypes.func,
+  setChoice: React.PropTypes.func,
 };
 export default Slides;
