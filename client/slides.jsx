@@ -34,6 +34,7 @@ class Slides extends React.Component {
     const userSelections = this.state.userSelections;
     userSelections[category] = imageIndex;
     this.setState({ userSelections });
+    console.log('headshot index: ', this.state.userSelections.headshot);
   }
   render() {
     const slides = [

@@ -6,12 +6,16 @@ class Carousel extends React.Component {
     super(props);
   }
   render() {
+    const that = this;
     const settings = {
       dots: false,
       infinite: true,
       speed: 100,
       slidesToShow: 1,
       slidesToScroll: 1,
+      afterChange(index) {
+        that.props.setSelection(that.props.category, index);
+      },
       // adaptiveHeight: true,
       draggable: false,
       slickGoTo: this.props.index,
@@ -26,7 +30,7 @@ class Carousel extends React.Component {
     return (
       <div className="carouselContainer">
       <div>
-        <ImageSlider {...settings}>
+        <ImageSlider {...settings}  >
           {imageElements}
         </ImageSlider>
       </div>
@@ -34,8 +38,6 @@ class Carousel extends React.Component {
     );
   }
 }
-
-
 Carousel.propTypes = {
   images: React.PropTypes.object,
 };

@@ -11,7 +11,7 @@ const imageSlide = (props) => (
         <div className="content h1">
           <h1>{props.title}</h1>
           <div className="photoContainer">
-            <Carousel index={props.index} images={props.images} />
+            <Carousel index={props.index} images={props.images} category={props.category} setSelection={props.setSelection}/>
             {console.log('imageSlide images', props.images)}
             {props.images.map((image, index) =>
               <img
@@ -27,6 +27,7 @@ const imageSlide = (props) => (
     </div>
   </div>
 );
+
 
 imageSlide.propTypes = {
   index: React.PropTypes.int,
