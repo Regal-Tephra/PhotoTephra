@@ -14,7 +14,6 @@ class App extends React.Component {
     this.getQuotes = this.getQuotes.bind(this);
     this.setView = this.setView.bind(this);
     this.setToggle = this.setToggle.bind(this);
-    this.setChoice = this.setChoice.bind(this);
 
     this.state = {
       photos: {},
@@ -27,13 +26,6 @@ class App extends React.Component {
         professional: [],
         adventurous: [],
       },
-      pickedProfile: {
-        headshot: '',
-        athletic: '',
-        professional: '',
-        adventurous: '',
-        quote: '',
-      },
     };
     this.render();
   }
@@ -42,11 +34,6 @@ class App extends React.Component {
   }
   setView(view) {
     this.setState({ view });
-  }
-  setChoice(field, choice) {
-    const storage = this.state.pickedProfile;
-    storage[field] = choice;
-    this.setState({ pickedProfile: storage });
   }
   getImages() {
     const end = new Date();

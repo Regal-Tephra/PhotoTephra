@@ -14,95 +14,117 @@ import Slider2 from 'react-slick';
 // ];
 
 class Slides extends React.Component {
-    constructor(props){
+  constructor(props) {
     super(props);
     this.add = this.add.bind(this);
+    this.setChoice = this.setChoice.bind(this);
+
     this.state = {
       index: 0,
+      pickedProfile: {
+        headshot: '',
+        athletic: '',
+        professional: '',
+        adventurous: '',
+        quote: '',
+      },
     };
   }
 
+  setChoice(field, choice) {
+    const storage = this.state.pickedProfile;
+    storage[field] = choice;
+    this.setState({ pickedProfile: storage });
+  }
   add(key, event) {
     this.setState({ index: key });
   }
-render() {
+  render() {
+    return (
+      <Slider>
+        <div itemStyle={{ backgroundColor: '#002D8E' }}>
+          <div className="Aligner  centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content">
+                <h1>Headshot</h1>
+                <div className="photoContainer">
+                  {this.props.images.headshot.map(image =>
+                    <img alt="headshot" className="photo" src={image.urls} />)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div itemStyle={{ backgroundColor: '#00B1F2' }}>
+          <div className="Aligner centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content h1">
+                <h1>Professional</h1>
+                <div className="photoContainer">
+                  {this.props.images.professional.map(image =>
+                    <img alt="athletic" className="photo" src={image.urls} />)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div itemStyle={{ backgroundColor: '#0099F2' }}>
+          <div className="Aligner centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content h1">
+                <h1>Athletic</h1>
+                <div className="photoContainer">
+                  {this.props.images.athletic.map(image =>
+                    <img alt="athletic" className="photo" src={image.urls} />)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div itemStyle={{ backgroundColor: '#F2D500' }}>
+          <div className="Aligner  centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content h1">
+                <h1>Adventurous</h1>
+                <div className="photoContainer">
 
-  return(
-  <Slider>
-    <div itemStyle={{ backgroundColor: '#002D8E' }}>
-      <div className="Aligner  centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content">
-          <h1>Headshot</h1>
-            <div className="photoContainer">
-              {this.props.images.headshot.map(image => <img className='photo' src={image.urls} />)}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div itemStyle={{ backgroundColor: '#00B1F2' }}>
-      <div className="Aligner centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">
-            <h1>Professional</h1>
-            <div className="photoContainer">
-              {this.props.images.professional.map(image => <img className='photo' src={image.urls} />)}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div itemStyle={{ backgroundColor: '#0099F2' }}>
-      <div className="Aligner centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">
-            <h1>Athletic</h1>
-            <div className="photoContainer">
-              {this.props.images.athletic.map(image => <img className='photo' src={image.urls} />)}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div itemStyle={{ backgroundColor: '#F2D500' }}>
-      <div className="Aligner  centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">
-            <h1>Adventurous</h1>
-            <div className="photoContainer">
+                  <Carousel index={this.state.index} images={this.props.images.adventurous} />
+                  {this.props.images.adventurous.map((image, key) =>
+                    <img alt="adventurous"
+                      onClick={this.add.bind(this, key)}
+                      className="photoSmall" src={image.urls} key={key}
+                    />)}
 
-            <Carousel index={this.state.index} images={this.props.images.adventurous}/>
-            {this.props.images.adventurous.map((image, key) => <img onClick={this.add.bind(this, key)} className='photoSmall' src={image.urls} key={key} />)}
-
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div itemStyle={{ backgroundColor: 'grey' }}>
-      <div className="Aligner  centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">
-            <h1>Pick Your Tagline</h1>
-            <div className="photoContainer">
-              {this.props.quotes.map(quote => <div className="container-fluid quote">{quote}</div>)}
+        <div itemStyle={{ backgroundColor: 'grey' }}>
+          <div className="Aligner  centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content h1">
+                <h1>Pick Your Tagline</h1>
+                <div className="photoContainer">
+                  {this.props.quotes.map(quote =>
+                    <div className="container-fluid quote">{quote}
+                    </div>)}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div itemStyle={{ backgroundColor: '#C9009D' }}>
-      <div className="Aligner  centering text-center">
-        <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">You're done!</div>
+        <div itemStyle={{ backgroundColor: '#C9009D' }}>
+          <div className="Aligner  centering text-center">
+            <div className="col-md-8 choiceAligner choiceContainer">
+              <div className="content h1">You're done!</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </Slider>
-);
+      </Slider>
+    );
+  }
 }
-};
 
 class Carousel extends React.Component {
   constructor(props) {
@@ -121,10 +143,11 @@ class Carousel extends React.Component {
     };
     console.log('over here', this.props.index);
     console.log('slide# ', this.props.index);
+    console.log(this.props.images);
 
     let imageElements = this.props.images.map( (image, i) => (
-      <div className='photoContainer'>
-        <img className='photo' src={image.urls} key={i}></img>
+      <div className="photoContainer">
+        <img className="photo" src={image.urls} key={i}></img>
       </div>
     ));
     // if (imageElements.length === 0) {
