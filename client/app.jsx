@@ -6,6 +6,7 @@ import Login from './login';
 import Nav from './nav';
 import Slides from './slides';
 import $ from 'jquery';
+import Loading from './loading';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +36,13 @@ class App extends React.Component {
     this.setState({ toggle: this.state.toggle === 'toggled' ? '' : 'toggled' });
   }
   setView(view) {
+    for (const key in this.state.images) {
+      if (this.state.images[key].length === 0) {
+        this.state.images[key].push({ urls: '' });
+      }
+    }
+    console.log('view,', view, 'this', this);
+    console.log(this.state.images);
     this.setState({ view });
   }
   setUsersName(usersName) {
@@ -79,6 +87,8 @@ class App extends React.Component {
       .done((categorizedImages) => {
         console.log(categorizedImages);
         this.setState({ images: categorizedImages });
+        console.log('hi');
+        this.setView('slides');
       })
       .fail(err => console.error(err));
     });
@@ -145,6 +155,9 @@ class App extends React.Component {
             <AboutUs />
           </div>
         </div>
+      ),
+      loading: (
+        <Loading />
       ),
     };
     return (<div>{views[this.state.view]}</div>);

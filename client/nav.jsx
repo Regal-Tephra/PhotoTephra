@@ -3,7 +3,7 @@ import ReactBootstrap from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { NavItem } from 'react-bootstrap';
-import { Link, hashHistory } from 'react-router';
+import { Link } from 'react-router';
 
 const topNav = (props) => (
   <Nav>
@@ -11,18 +11,26 @@ const topNav = (props) => (
       <ul className="sidebar-nav">
         <li className="sidebar-brand">
           <a href="#">
-            Photephra
+          Photephra
           </a>
         </li>
         <li>
-          <Link onClick={function(){props.setView('aboutUs')}} activeClassName="active">About Us</Link>
+          <a onClick={() => { props.setView('aboutUs'); }} activeClassName="active">
+          About Us
+          </a>
         </li>
         <li>
-          <Link onClick={function(){props.setView('slides')}} activeClassName="active">Create new Profile</Link>
+          <a onClick={() => { props.setView('slides'); }} activeClassName="active">
+          Create new Profile
+          </a>
         </li>
       </ul>
     </div>
   </Nav>
 );
+
+topNav.propTypes = {
+  setView: React.PropTypes.func,
+};
 
 export default topNav;

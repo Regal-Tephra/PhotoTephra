@@ -58,7 +58,7 @@ class FacebookButton extends React.Component {
                 window.fbId = response.id;
                 window.access_token = access_token;
                 this.props.getImages();
-                this.props.setView('slides');
+                this.props.setView('loading');
               }).fail((err) => {
                 console.log(err, 'error in checkLoginState');
               });

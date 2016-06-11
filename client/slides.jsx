@@ -18,6 +18,7 @@ class Slides extends React.Component {
   constructor(props) {
     super(props);
     this.setSelection = this.setSelection.bind(this);
+    this.setQuote = this.setQuote.bind(this);
 
     this.state = {
       userSelections: {
@@ -25,7 +26,7 @@ class Slides extends React.Component {
         athletic: 0,
         professional: 0,
         adventurous: 0,
-        quote: '',
+        quote: 'This is my profile text',
       },
     };
   }
@@ -36,6 +37,14 @@ class Slides extends React.Component {
     this.setState({ userSelections });
     console.log('headshot index: ', this.state.userSelections.headshot);
   }
+
+  setQuote(event) {
+    event.preventDefault();
+    const userSelections = this.state.userSelections;
+    userSelections.quote = event.target.value;
+    this.setState({ userSelections });
+  }
+
   render() {
     const slides = [
       {
@@ -78,10 +87,19 @@ class Slides extends React.Component {
                   <div className="col-md-8 choiceAligner choiceContainer">
                     <div className="content h1">
                       <h1>Pick Your Tagline</h1>
-                      <div className="photoContainer">
+                      <div className="list-group">
                         {this.props.quotes.map(quote =>
-                          <div className="container-fluid quote">{quote}
-                          </div>)}
+                          <div className="list-group-button btn-block quoteContainer">
+                            <button
+                              onClick={this.setQuote}
+                              type="button"
+                              className="quotes"
+                              value={quote}
+                            >
+                              {quote}
+                            </button>
+                          </div>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -113,7 +131,7 @@ class Slides extends React.Component {
                           About {this.props.usersName.split(' ')[0]}
                         </div>
                         <div className="profile-text">
-                          This is my profile text
+                          {this.state.userSelections.quote}
                         </div>
                       </div>
                     </div>
