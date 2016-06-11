@@ -3,6 +3,7 @@ const request = require('request');
 const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
+const db = Promise.promisifyAll(new DbForSavingPhotoAPIResults());
 const key = require('../../keys.js');
 const categories = require('./categories.js');
 const app = require('../server.js');
@@ -45,7 +46,6 @@ module.exports.createArrayOfPhotos = (imageArray) => {
 
 // Get Tags from Clarifai (memoized on database) and return array with photos
 module.exports.getTags = (photoArray, callback) => {
-  const db = Promise.promisifyAll(new DbForSavingPhotoAPIResults());
   let imagesFoundInDb;
   let imagesNotFoundInDb;
   let images;
