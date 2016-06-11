@@ -135,4 +135,3 @@ Slides.propTypes = {
   usersName: React.PropTypes.string,
 };
 export default Slides;
-
