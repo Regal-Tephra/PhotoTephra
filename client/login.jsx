@@ -13,6 +13,7 @@ const Login = (props) => (
           setView={props.setView}
           getImages={props.getImages}
           getQuotes={props.getQuotes}
+          setUsersName={props.setUsersName}
         />
       </div>
     </div>
@@ -22,6 +23,7 @@ Login.propTypes = {
   setView: React.PropTypes.func,
   getImages: React.PropTypes.func,
   getQuotes: React.PropTypes.func,
+  setUsersName: React.PropTypes.func,
 };
 export default Login;
 

@@ -40,11 +40,12 @@ class FacebookButton extends React.Component {
   checkLoginState() {
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
-        console.log('fb res:', response.getUserID);
+        this.props.setUsersName(response.name);
         this.setState({ authenticated: true });
                 this.props.getImages();
                 this.props.getQuotes();
                 this.props.setView('slides');
+
       } else {
         this.props.getQuotes();
         FB.login((response) => {
@@ -52,6 +53,7 @@ class FacebookButton extends React.Component {
           if (response.authResponse) {
             FB.api('/me', (response) => {
               this.setState({ authenticated: true });
+              this.props.setUsersName(response.name);
               $.post('/signin', { name: response.name, userId: response.id, access_token: access_token }).done(() => {
                 window.fbId = response.id;
                 window.access_token = access_token;
@@ -102,5 +104,6 @@ FacebookButton.propTypes = {
   setView: React.PropTypes.func,
   getImages: React.PropTypes.func,
   getQuotes: React.PropTypes.func,
+  setUsersName: React.PropTypes.func,
 };
 export default FacebookButton;

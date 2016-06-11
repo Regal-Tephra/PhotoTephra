@@ -14,6 +14,7 @@ class App extends React.Component {
     this.getQuotes = this.getQuotes.bind(this);
     this.setView = this.setView.bind(this);
     this.setToggle = this.setToggle.bind(this);
+    this.setUsersName = this.setUsersName.bind(this);
 
     this.state = {
       photos: {},
@@ -21,11 +22,12 @@ class App extends React.Component {
       view: 'login',
       toggle: '',
       images: {
-        headshot: [],
-        athletic: [],
-        professional: [],
-        adventurous: [],
+        headshot: [{ urls: '' }],
+        athletic: [{ urls: '' }],
+        professional: [{ urls: '' }],
+        adventurous: [{ urls: '' }],
       },
+      usersName: '',
     };
     this.render();
   }
@@ -34,6 +36,9 @@ class App extends React.Component {
   }
   setView(view) {
     this.setState({ view });
+  }
+  setUsersName(usersName) {
+    this.setState({ usersName });
   }
   getImages() {
     const end = new Date();
@@ -106,6 +111,7 @@ class App extends React.Component {
         setView={this.setView}
         getImages={this.getImages}
         getQuotes={this.getQuotes}
+        setUsersName={this.setUsersName}
       />),
       // slides: (<Slides photos={this.state.photos} />),
       slides: (
@@ -122,6 +128,7 @@ class App extends React.Component {
               images={this.state.images}
               quotes={this.state.quotes}
               setChoice={this.state.setChoice}
+              usersName={this.state.usersName}
             />
           </div>
         </div>

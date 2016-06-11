@@ -95,13 +95,21 @@ class Slides extends React.Component {
                       <h1>You're done!</h1>
                       <div className="final-profile-container">
                         <div className="final-profile-images-container">
-                          <div className="sq-pic-left"><div className="square-pic"></div></div>
-                          <div className="sq-pic-right-top"><div className="square-pic"></div></div>
-                          <div className="sq-pic-right-middle"><div className="square-pic"></div></div>
-                          <div className="sq-pic-right-bottom"><div className="square-pic"></div></div>
+                          <div className="sq-pic-left">
+                            <div className="square-pic" style={{ backgroundImage: `url(${this.props.images.headshot[this.state.userSelections.headshot].urls})` }}></div>
+                          </div>
+                          <div className="sq-pic-right-top">
+                            <div className="square-pic" style={{ backgroundImage: `url(${this.props.images.professional[this.state.userSelections.professional].urls})` }}></div>
+                          </div>
+                          <div className="sq-pic-right-middle">
+                            <div className="square-pic" style={{ backgroundImage: `url(${this.props.images.athletic[this.state.userSelections.athletic].urls})` }}></div>
+                          </div>
+                          <div className="sq-pic-right-bottom">
+                            <div className="square-pic" style={{ backgroundImage: `url(${this.props.images.adventurous[this.state.userSelections.adventurous].urls})` }}></div>
+                          </div>
                         </div>
                         <div className="profile-text-title">
-                          About {name}
+                          About {this.props.usersName.split(' ')[0]}
                         </div>
                         <div className="profile-text">
                           This is my profile text
@@ -124,6 +132,7 @@ Slides.propTypes = {
   images: React.PropTypes.object,
   quotes: React.PropTypes.object,
   setChoice: React.PropTypes.func,
+  usersName: React.PropTypes.string,
 };
 export default Slides;
 
