@@ -11,10 +11,10 @@
 ##Project Overview <a name="Project-Overview"></a>
 
 
-Improve your online dating profile by employing the best practices. Create a well balanced profile by picking a portrait, professional, athletic, and adventurous photo to get the attention of your next true love. Pick a tagline to populate your tinder profile with to get that cutie to swipe right when she reads your witty tagline.
+Improve your online dating profile by employing the best practices. Create a well balanced profile by picking a portrait, professional, athletic, and adventurous photo to get the attention of your next true love.
 
 ## Project Features:
-- Totally redone front end with slide format, about us pages, carousel picture viewer,  etc.
+- Redone front end with slide format, about us pages, carousel picture viewer,  etc.
 - Backend grabs tags from ML startup Clarifai’s API to automatically tag photos. 
 - Backend includes automatic categorizing of photos into portrait, professional, athletic, and adventurous buckets.
 - Backend includes memoization of already-tagged Clarifai photos
